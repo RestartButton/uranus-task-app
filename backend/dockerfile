@@ -1,0 +1,30 @@
+# Use a imagem oficial do .NET SDK para build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+
+# Defina o diretório de trabalho
+WORKDIR /app
+
+# Copie e restaure os arquivos do projeto
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copie o restante do código
+COPY . ./
+
+# Faça o build do projeto
+RUN dotnet publish -c Release -o out
+
+# Imagem para execução
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+
+# Defina o diretório de trabalho
+WORKDIR /app
+
+# Copie o build para a imagem final
+COPY --from=build /app/out .
+
+# Exponha a porta 5000
+EXPOSE 5000
+
+# Comando para iniciar o servidor
+CMD ["dotnet", "UranusTask.dll"]
