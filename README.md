@@ -114,9 +114,8 @@ public class Task
 frontend/
 ├── src/
 │   ├── components/   # Componentes reutilizáveis
-│   ├── pages/        # Páginas principais
+│   ├── app/          # Rota taiz
 │   ├── services/     # Configuração de API com Axios
-│   └── App.js        # Componente raiz
 └── public/
 ```
 
@@ -154,22 +153,3 @@ frontend/
 
 ### 3. Configurar Banco de Dados
 Certifique-se de que o SQL Server esteja rodando no Docker ou localmente. Atualize a string de conexão no arquivo `appsettings.json`.
-
----
-
-## Contribuições
-1. Faça um fork deste repositório
-2. Crie uma branch para sua feature ou correção: `git checkout -b minha-feature`
-3. Faça commit das suas alterações: `git commit -m 'Adicionei uma nova feature'`
-4. Envie para a branch: `git push origin minha-feature`
-5. Abra um Pull Request
-
----
-
-## Licença
-Este projeto está licenciado sob a [MIT License](LICENSE).
-
----
-
-## Contato
-Se tiver dúvidas ou sugestões, entre em contato pelo e-mail: [seuemail@exemplo.com](mailto:seuemail@exemplo.com)

@@ -1,5 +1,5 @@
 # Use a imagem oficial do Node.js para construir o front-end
-FROM node:18 as build
+FROM node:20.17.0-alpine3.20 as build
 
 # Defina o diretório de trabalho
 WORKDIR /app
@@ -8,17 +8,17 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-COPY . .
+COPY . ./
 RUN npm run build
 
 # Imagem para servir a aplicação
-FROM nginx:stable-alpine
-
+FROM node:20.17.0-alpine.20
+WORKDIR /app
 # Copie os arquivos construídos para o servidor Nginx
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app ./
 
 # Exponha a porta 80
 EXPOSE 80
 
 # Comando para iniciar o servidor
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
