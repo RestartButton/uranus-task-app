@@ -1,5 +1,5 @@
 # Use a imagem oficial do .NET SDK para build
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Defina o diretório de trabalho
 WORKDIR /app
