@@ -2,14 +2,15 @@
 .DS_Store
 Thumbs.db
 
-# Node.js (React)
+#Front
 frontend/node_modules/
 frontend/build/
 frontend/.env
 
-# .NET
+#Back
 backend/bin/
 backend/obj/
+backend/out/
 backend/*.user
 backend/*.suo
 backend/.vs/

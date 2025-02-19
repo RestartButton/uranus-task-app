@@ -12,10 +12,10 @@ RUN dotnet restore
 COPY . ./
 
 # Faça o build do projeto
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release -o out -p:AssemblyName=UranusTask
 
 # Imagem para execução
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM build AS final
 
 # Defina o diretório de trabalho
 WORKDIR /app
@@ -26,5 +26,6 @@ COPY --from=build /app/out .
 # Exponha a porta 5000
 EXPOSE 5000
 
+ENV ASPNETCORE_URLS=http://+:5000
 # Comando para iniciar o servidor
-CMD ["dotnet", "UranusTask.dll"]
+ENTRYPOINT ["dotnet", "UranusTask.dll"]

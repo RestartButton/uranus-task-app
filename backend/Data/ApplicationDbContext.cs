@@ -6,6 +6,9 @@ public class ApplicationDbContext : DbContext
     {
     }
 
+    public DbSet<User> Users { get; set; }
+
     // Adicione aqui os DbSets para suas entidades
     public DbSet<Task> Tasks { get; set; }
 }
+

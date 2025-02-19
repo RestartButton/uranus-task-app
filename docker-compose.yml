@@ -1,12 +1,16 @@
 services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql_server
     ports:
-      - "3000:80"
-    depends_on:
-      - backend
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: ${DB_PASSWORD}
+      ACCEPT_EULA: "Y"
+    volumes:
+      - db-data:/var/opt/mssql
+    networks:
+      - app_network
 
   backend:
     build:
@@ -15,21 +19,24 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=appdb;User Id=sa;Password=${DB_PASSWORD};
+      - ConnectionStrings__DefaultConnection=Server=${DB_HOST},1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};TrustServerCertificate=True;
     depends_on:
       - db
+    networks:
+      - app_network
 
-  db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sql_server
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - "1433:1433"
-    environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - db-data:/var/opt/mssql
+      - "3000:3000"
+    depends_on:
+      - backend
 
 volumes:
   db-data:
+
+networks:
+  app_network:
+    driver: bridge

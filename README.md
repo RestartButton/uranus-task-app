@@ -114,7 +114,7 @@ public class Task
 frontend/
 ├── src/
 │   ├── components/   # Componentes reutilizáveis
-│   ├── app/          # Rota taiz
+│   ├── app/          # Rota raiz
 │   ├── services/     # Configuração de API com Axios
 └── public/
 ```
@@ -152,4 +152,4 @@ frontend/
    ```
 
 ### 3. Configurar Banco de Dados
-Certifique-se de que o SQL Server esteja rodando no Docker ou localmente. Atualize a string de conexão no arquivo `appsettings.json`.
+Certifique-se de que o SQL Server esteja rodando no Docker ou localmente. Atualize a string de conexão no arquivo `backend/appsettings.json`.
