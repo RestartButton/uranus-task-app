@@ -20,8 +20,8 @@ services:
       - "5000:5000"
     environment:
       - ConnectionStrings__DefaultConnection=Server=${DB_HOST},1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};TrustServerCertificate=True;
-      - Jwt_Key=${JWT_SECRET}
-      - Jwt_Issuer=${JWT_ISSUER}
+      - Jwt__Key=${JWT_SECRET}
+      - Jwt__Issuer=${JWT_ISSUER}
     depends_on:
       - db
     networks:
