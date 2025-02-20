@@ -1,5 +1,5 @@
 # Use a imagem oficial do .NET SDK para build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
 # Defina o diretório de trabalho
 WORKDIR /app
@@ -15,7 +15,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out -p:AssemblyName=UranusTask
 
 # Imagem para execução
-FROM build AS final
+FROM mcr.microsoft.com/dotnet/sdk:9.0
 
 # Defina o diretório de trabalho
 WORKDIR /app
