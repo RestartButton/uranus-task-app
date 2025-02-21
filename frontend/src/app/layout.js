@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import { AuthProvider } from "@/context/AuthContext";
 import { Montserrat } from "next/font/google";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -10,8 +11,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className=""><div className={montserrat.className}>{children}</div></body>
+    <html lang="pt">
+      <body className="">
+        <div className={montserrat.className}>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </div>
+      </body>
     </html>
   )
 }

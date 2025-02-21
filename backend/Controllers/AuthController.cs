@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/auth")]
@@ -46,4 +48,24 @@ public class AuthController : ControllerBase
         var token = _authService.GenerateJwtToken(user);
         return Ok(new { token });
     }
+
+    [Authorize] // Garante que apenas usuários autenticados podem acessar
+    [HttpGet("me")]
+    public IActionResult GetUserInfo()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userName = User.FindFirst(ClaimTypes.Name)?.Value;
+        var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+
+        if (userId == null)
+            return Unauthorized();
+
+        return Ok(new
+        {
+            id = userId,
+            name = userName,
+            email = userEmail
+        });
+    }
+
 }
