@@ -26,6 +26,20 @@ export function AuthProvider({ children }) {
         setLoading(false);
     }, []);
 
+    const register = async (UserName, email, password) => {
+        try {
+            await axios.post("/auth/register", {
+                "name": UserName,
+                "email": email,
+                "password": password
+            });
+            router.push("/tasks");
+        } catch (error) {
+            console.error("Erro ao fazer cadastro", error);
+            throw new Error("Não foi possível completar o cadastro");
+        }
+    }
+
     const login = async (email, password) => {
         try {
             const response = await axios.post("/auth/login", { email, password });
@@ -47,7 +61,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, register, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

@@ -24,6 +24,7 @@ export default function LoginPage() {
         setError("");
         try {
             await login(email, password);
+            router.push("/tasks");
         } catch (err) {
             setError("Erro ao fazer login, verifique suas credenciais.");
         }
@@ -55,11 +56,13 @@ export default function LoginPage() {
                         Entrar
                     </Button>
                 </form>
-                <div className="w-full flex justify-center items-center">
-                    <Button className=" bg-orange-500 hover:bg-orange-600 text-white" variant="secondary">
-                        Cadastrar
-                    </Button>
-                </div>
+                <Button 
+                    onClick={() => router.push("/register")} 
+                    className="w-full bg-orange-500 hover:bg-orange-600 text-white" 
+                    variant="secondary"
+                >
+                    Cadastrar
+                </Button>
             </div>
         </div>
     );
