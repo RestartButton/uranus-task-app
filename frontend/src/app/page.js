@@ -1,20 +1,20 @@
 'use client'
 
-import { useAuth } from "@/context/AuthContext";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default () => {
-    const { user } = useAuth();
+    const { data } = useSession();
     const router = useRouter();
 
     useEffect(() => {
-        if(!user) {
+        if(!data) {
             router.push("/login");
         } else {
             router.push("/tasks");
         }
-    }, [user, router]);
+    }, [data, router]);
 
     return <p className="text-center text-white">Carregando...</p>;
 }

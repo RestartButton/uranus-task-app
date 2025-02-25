@@ -46,7 +46,13 @@ public class AuthController : ControllerBase
         }
 
         var token = _authService.GenerateJwtToken(user);
-        return Ok(new { token });
+        return Ok(new 
+        { 
+            token, 
+            id = user.Id,
+            name = user.Name,
+            email = user.Email
+        });
     }
 
     [Authorize] // Garante que apenas usuários autenticados podem acessar
