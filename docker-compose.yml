@@ -27,14 +27,16 @@ services:
     networks:
       - app_network
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   enviroment:
+  #     - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+  #   depends_on:
+  #     - backend
 
 volumes:
   db-data:

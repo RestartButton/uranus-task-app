@@ -14,10 +14,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddControllers();
 builder.Services.AddScoped<AuthService>();
 
-var jwtKey = builder.Configuration["Jwt:Key"];
+var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new ArgumentNullException("Jwt:Key não pode ser nulo!");
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 
-var key = Encoding.UTF8.GetBytes(jwtKey) ?? throw new ArgumentNullException("Jwt:Key não pode ser nulo!");
+var key = Encoding.UTF8.GetBytes(jwtKey);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => 
     {

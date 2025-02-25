@@ -1,12 +1,8 @@
-import axios from 'axios';
-
-const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api', // URL base do backend
-});
+import axios from '@/lib/axios';
 
 export const getTasks = async () => {
     try {
-        const response = await api.get('/tasks');
+        const response = await axios.get('/tasks');
         return response.data;
     } catch (error) {
         console.error("Erro ao buscar tarefas: ", error);
@@ -16,7 +12,7 @@ export const getTasks = async () => {
 
 export const createTask = async (task) => {
     try {
-        const response = await api.post('/tasks', task);
+        const response = await axios.post('/tasks', task);
         return response.data;
     } catch (error) {
         console.error("Erro ao criar tarefa: ", error);
@@ -26,7 +22,7 @@ export const createTask = async (task) => {
 export const editTask = async (task) => {
     try {
         console.log(task);
-        const response = await api.put(`/tasks/${task.id}`, task);
+        const response = await axios.put(`/tasks/${task.id}`, task);
         console.log(task);
         return response.data;
     } catch (error) {
@@ -36,10 +32,10 @@ export const editTask = async (task) => {
 
 export const deleteTask = async (taskId) => {
     try {
-        await api.delete(`/tasks/${taskId}`);
+        await axios.delete(`/tasks/${taskId}`);
     } catch (error) {
         console.error("Erro ao excluir tarefa: ", error);
     }
 }
 
-export default api;
+export default axios;
