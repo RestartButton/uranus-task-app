@@ -38,4 +38,24 @@ export const deleteTask = async (taskId) => {
     }
 }
 
+
+
+export const getGroups = async () => {
+
+}
+
+export const createGroup = async () => {
+
+}
+
+export const joinGroup = async () => {
+
+}
+
+export const leaveGroup = async () => {
+
+}
+
+
+
 export default axios;

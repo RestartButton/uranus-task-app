@@ -3,7 +3,7 @@
 Thumbs.db
 
 #Front
-frontend/.next/
+frontend/.next
 frontend/node_modules/
 frontend/build/
 frontend/.env
