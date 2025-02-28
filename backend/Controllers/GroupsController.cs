@@ -28,7 +28,7 @@ public class GroupsController : ControllerBase
             })
             .ToListAsync();
         
-        if (groupList == null || groupList.Count == 0)
+        if (groupList == null)
             return NotFound(new { message = "Usuário não está associado a nenhum grupo." });
 
         return Ok(groupList);

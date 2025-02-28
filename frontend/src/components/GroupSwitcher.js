@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import { useGroup } from "@/context/GroupContext";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "./ui/sidebar";
 import { Check, ChevronsUpDown, Group, Plus } from "lucide-react";
@@ -8,21 +9,20 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import { getGroups, createGroup } from "@/services/api";
+import { createGroup } from "@/services/groupsApi";
 
-export function GroupSwitcher({ activeGroup, setActiveGroup }) {
+export function GroupSwitcher({ groups, setGroups }) {
     const { isMobile } = useSidebar();
-    const [groups, setGroups] = useState([]);
+    const { activeGroup, setActiveGroup } = useGroup();
     const [newGroup, setNewGroup] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        async function fetchGroups () {
-            const data = await getGroups();
-            setGroups(data);
-        }
-        fetchGroups();
-    }, []);
+        if(!groups.length) return;
+
+        const defaultGroup = groups[0];
+        setActiveGroup(activeGroup ?? defaultGroup);
+    }, [setActiveGroup, activeGroup, groups]);
 
     const handleSubmit = async () => {
         const res = await createGroup({ Name: newGroup });
@@ -71,8 +71,6 @@ export function GroupSwitcher({ activeGroup, setActiveGroup }) {
                 </SidebarMenuItem>
             </SidebarMenu>
         );  
-    else if (!activeGroup)
-        setActiveGroup(groups[0]);
 
     return (
         <SidebarMenu>

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { createTask, editTask } from '@/services/api';
+import { createTask, editTask } from '@/services/tasksApi';
 import { Button } from './ui/button';
 
 export default function TaskForm({ task, onClose }) {

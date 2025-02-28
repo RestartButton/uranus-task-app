@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import { getTasks, deleteTask } from '@/services/api';
+import { getTasks, deleteTask } from '@/services/tasksApi';
 import TaskCard from "./TaskCard";
 
 const TaskList = ({ onEdit }) => {

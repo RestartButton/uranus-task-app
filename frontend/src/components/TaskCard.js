@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Pencil, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Switch } from "./ui/switch";
-import { editTask } from "@/services/api";
+import { editTask } from "@/services/tasksApi";
 
 export default function TaskCard({ task, onDelete, onToggle, onEdit }) {
   return (
