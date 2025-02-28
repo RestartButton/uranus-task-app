@@ -9,7 +9,7 @@ export default function TaskCard({ task, onDelete, onToggle, onEdit }) {
     <Card 
         className={cn(
             "relative w-full max-w-md border-accent shadow-md p-4 transition-all",
-            task.isCompleted ? "border-green-900 bg-green-100" : "bg-background"
+            task.isCompleted ? "border-green-400 bg-green-900" : "bg-background"
         )}
     >
         <button

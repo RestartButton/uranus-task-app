@@ -3,17 +3,23 @@
 import React, { useEffect, useState } from 'react';
 import { getTasks, deleteTask } from '@/services/tasksApi';
 import TaskCard from "./TaskCard";
+import { useGroup } from '@/context/GroupContext';
 
 const TaskList = ({ onEdit }) => {
     const [tasks, setTasks] = useState([]);
+    const { activeGroup } = useGroup();
 
     useEffect(() => {
         async function fetchTasks() {
-            const data = await getTasks();
-            setTasks(data);
+            if(activeGroup) {
+                const data = await getTasks(activeGroup.id);
+                setTasks(data);
+            } else {
+                setTasks([]);
+            }
         }
         fetchTasks();
-    }, []);
+    }, [activeGroup, setTasks]);
 
     const handleDeleteTask = async (id) => {
         await deleteTask(id);
