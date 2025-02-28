@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class TasksController : ControllerBase
@@ -10,12 +12,6 @@ public class TasksController : ControllerBase
     public TasksController(ApplicationDbContext context)
     {
         _context = context;
-    }
-
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Task>>> GetTasks()
-    {
-        return await _context.Tasks.ToListAsync();
     }
 
     [HttpGet("{id}")]

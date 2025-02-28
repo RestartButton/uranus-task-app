@@ -44,7 +44,7 @@ public class AuthController : ControllerBase
         {
             return Unauthorized(new { message = "Email ou senha inválidos" });
         }
-
+        
         var token = _authService.GenerateJwtToken(user);
         return Ok(new 
         { 

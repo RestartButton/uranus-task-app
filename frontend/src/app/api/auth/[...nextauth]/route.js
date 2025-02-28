@@ -34,6 +34,14 @@ const handler = NextAuth({
             return token;
         },
         session: async ({ session, token }) => {
+            const res = await axios.get("/auth/me", {
+                headers: {
+                    Authorization: `Bearer ${token.accessToken}`
+                }
+            })
+
+            if(res.status !== 200) throw new Error("Token Inválido!");
+
             session.user.id = token.id;
             session.accessToken = token.accessToken;
             return session;

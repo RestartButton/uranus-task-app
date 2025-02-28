@@ -12,7 +12,7 @@ export default () => {
         if(!data) {
             router.push("/login");
         } else {
-            router.push("/tasks");
+            router.push("/home");
         }
     }, [data, router]);
 

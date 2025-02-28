@@ -2,14 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Pencil, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Switch } from "./ui/switch";
-import { editTask } from "@/services/api";
+import { editTask } from "@/services/tasksApi";
 
 export default function TaskCard({ task, onDelete, onToggle, onEdit }) {
   return (
     <Card 
         className={cn(
             "relative w-full max-w-md border-accent shadow-md p-4 transition-all",
-            task.isCompleted ? "border-green-900 bg-green-100" : "bg-background"
+            task.isCompleted ? "border-green-400 bg-green-900" : "bg-background"
         )}
     >
         <button
