@@ -40,20 +40,27 @@ public class GroupsController : ControllerBase
         var group = await _context.Groups.FindAsync(id);
         var taskList = _context.Tasks.Where(t => t.GroupId == id).ToList();
         if (group == null) return BadRequest();
+        var groupDto = new GroupDto 
+        {
+            Id = group.Id,
+            Name = group.Name,
+            CreatedBy = group.CreatedBy,
+            CreatedOn = group.CreatedOn,
+        };
         return Ok( new {
-            group,
+            groupDto,
             taskList
         });
     }
 
     [HttpPost]
-    public async Task<ActionResult<Group>> PostGroup(string name)
+    public async Task<ActionResult<Group>> PostGroup(GroupDto newGroup)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         var user = await _context.Users.FindAsync(userId);
         var group = new Group
         {
-            Name = name,
+            Name = newGroup.Name,
             CreatedBy = userId,
             CreatedOn = DateTime.Now
         };
@@ -65,11 +72,20 @@ public class GroupsController : ControllerBase
         {
             UserId = userId,
             GroupId = group.Id,
-            Status = true
+            Status = true,
+            AssociationDate = DateTime.Now
         });
         await _context.SaveChangesAsync();
+
+        var groupDto = new GroupDto 
+        {
+            Id = group.Id,
+            Name = group.Name,
+            CreatedBy = group.CreatedBy,
+            CreatedOn = group.CreatedOn,
+        };
         
-        return CreatedAtAction(nameof(PostGroup), new { id = group.Id }, new { message = "Grupo criado com sucesso!", group});
+        return CreatedAtAction(nameof(PostGroup), new { id = group.Id }, new { message = "Grupo criado com sucesso!", groupDto});
     }
 
     [HttpPost("{groupId}/user/{userId}")]
